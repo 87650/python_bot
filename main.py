@@ -2,36 +2,31 @@ import discord
 from discord.ext import commands
 
 from discord.message import *
-class CreateBot:
-    token_bot = "ODUzMjY0NjAxNTQxOTAyMzQ2.YMS2lQ.i13GTDHNhM5P0ZZwwlCnHyvuLmw"
-    client = discord.Client()
+class Bot(discord.Client):
+    token_bot = "ODUzMjY0NjAxNTQxOTAyMzQ2.YMS2lQ.evlpH_MuExHCL5kiYCzXyqnMQDk"
+
+    async def on_ready(self):
+            print('Бот активирован {0.user}'.format(self.user))
 
 
+    async def on_message(self,message):
 
-bots = CreateBot()
-client = bots.client
-@client.event
-async def on_ready():
-        print('Бот активирован {0.user}'.format(client))
-
-@client.event
-async def on_message(message):
-
-        if(message.content == "cached message"):
-           await cached(message)
-            # discord.AppInfo.icon_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/How_to_use_icon.svg/1200px-How_to_use_icon.svg.png"
-             #await  message.channel.send(discord.AppInfo.owner)
-        elif(message.content == "all channel"):
-            await getchannel(message)
+            if(message.content == "cached message"):
+               await self.cached(message)
+                # discord.AppInfo.icon_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/How_to_use_icon.svg/1200px-How_to_use_icon.svg.png"
+                 #await  message.channel.send(discord.AppInfo.owner)
+            elif(message.content == "all channel"):
+                await self.getchannel(message)
 
 
-async def cached(message):
-    for mess in client.cached_messages:
-       await message.channel.send(mess)
+    async def cached(self,message):
+         for mess in self.cached_messages:
+                await message.channel.send(mess)
 
-async def getchannel(message):
-    for channal in client.get_all_channels():
-        await message.channel.send(channal)
+    async def getchannel(self,message):
+            for channal in self.get_all_channels():
+                await message.channel.send(channal)
 
 
-bots.client.run(bots.token_bot)
+bot = Bot()
+bot.run(bot.token_bot)
