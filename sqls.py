@@ -12,7 +12,7 @@ class Sql:
 
         except Error as e:
             print(e)
-    async def getsql(self,message,discord,bot):
+    async def get_sql(self,message,discord,bot):
         self.connect_sql()
         mes = message.content.replace("!enter notes", " ")
         with self.connection.cursor() as cursor:
@@ -30,7 +30,7 @@ class Sql:
               else:
                   await message.channel.send("у вас уже есть заметки, чтобы их вывести введите - !display notes")
 
-    async def setsql(self,message,discord,bot):
+    async def set_sql(self,message,discord,bot):
         self.connect_sql()
         #mes = message.content.replace("!display notes", " ")
         with self.connection.cursor() as cursor:
@@ -48,13 +48,13 @@ class Sql:
 
 
 
-    async def deletesql(self,message,discord,bot):
+    async def delete_sql(self,message,discord,bot):
         self.connect_sql()
         with self.connection.cursor() as cursor:
             cursor.execute("DELETE FROM bot WHERE name = '{0}'".format(bot.appinfo.owner))
             self.connection.commit()
             await message.channel.send("Заметки удалены!")
-    async def updatesql(self,message,discord,bot):
+    async def update_sql(self,message,discord,bot):
         self.connect_sql()
         mes = message.content.replace("!update notes", " ")
         with self.connection.cursor() as cursor:
